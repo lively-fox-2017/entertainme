@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const responseTime = require('response-time')
+const redis = require('redis')
+const client = redis.createClient()
 
 var index = require('./routes/index');
 var movieTV = require('./routes/movieTV');
