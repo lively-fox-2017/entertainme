@@ -1,4 +1,5 @@
 const Movie = require('../models/Movie');
+const { flushCache } = require('../helpers');
 
 class MovieController {
   static fetchAll(req, res) {
@@ -18,6 +19,7 @@ class MovieController {
       .insertMany(req.body)
       .then((movie) => {
         res.status(201).json(movie);
+        flushCache();
       })
       .catch((err) => {
         res.status(400).json(err);
@@ -54,6 +56,7 @@ class MovieController {
             .updateOne({ _id: req.params.id }, req.body)
             .then((response) => {
               res.status(200).json(movie);
+              flushCache();
             })
             .catch((err) => {
               res.status(400).json(err);
@@ -80,6 +83,7 @@ class MovieController {
             .deleteOne({ _id: req.params.id })
             .then((response) => {
               res.status(200).json(movie);
+              flushCache();
             })
             .catch((err) => {
               res.status(400).json(err);

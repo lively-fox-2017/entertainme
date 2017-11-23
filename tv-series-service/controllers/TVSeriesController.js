@@ -1,4 +1,5 @@
 const TVSeries = require('../models/TVSeries');
+const { flushCache } = require('../helpers');
 
 class TVSeriesController {
   static fetchAll(req, res) {
@@ -18,6 +19,7 @@ class TVSeriesController {
       .insertMany(req.body)
       .then((tvSeries) => {
         res.status(201).json(tvSeries);
+        flushCache();
       })
       .catch((err) => {
         res.status(400).json(err);
@@ -54,6 +56,7 @@ class TVSeriesController {
             .updateOne({ _id: req.params.id }, req.body)
             .then((response) => {
               res.status(200).json(tvSeries);
+              flushCache();
             })
             .catch((err) => {
               res.status(400).json(err);
@@ -80,6 +83,7 @@ class TVSeriesController {
             .deleteOne({ _id: req.params.id })
             .then((response) => {
               res.status(200).json(tvSeries);
+              flushCache();
             })
             .catch((err) => {
               res.status(400).json(err);
