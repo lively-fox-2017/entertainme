@@ -26,6 +26,9 @@ const movieSchema = new Schema({
   },
   tag: {
     type: [String]
+  },
+  status: {
+    type: String
   }
 },
 {
