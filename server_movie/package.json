@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "axios": "^0.17.1",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "fastify": "^0.35.1",
+    "mongoose": "^4.13.4"
+  }
+}
