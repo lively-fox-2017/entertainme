@@ -1,4 +1,5 @@
 var app = require('fastify')()
+var axios = require('axios')
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 mongoose.Promise = global.Promise;
@@ -28,10 +29,14 @@ app.post('/', async (req,res) => {
     // console.log(newMovie)
     var result = await newMovie.save()    
 
-    res.send({
-        savedData: result,
-        msg: 'Movie data saved'
-    })
+    var update = await axios.get('http://localhost:3000/movieUpdate')
+
+    if(update.data === true) {
+        res.send({
+            savedData: result,
+            msg: 'Movie data saved'
+        })
+    }
 })
 
 app.listen(3001, function(err) {
