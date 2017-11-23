@@ -1,6 +1,10 @@
 const Tv = require('../models/tv')
 
 class TvCtrl {
+  static async version (req, res) {
+    var response = await Tv.getTvVer()
+    res.send(response)
+  }
   static async read (req, res) {
     var response = await Tv.read()
     res.send(response)
