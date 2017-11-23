@@ -1,6 +1,10 @@
 const Movie = require('../models/movie')
 
 class MovieCtrl {
+  static async version (req, res) {
+    var response = await Movie.getMovieVer()
+    res.send(response)
+  }
   static async read (req, res) {
     var response = await Movie.read()
     res.send(response)
