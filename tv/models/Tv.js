@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 mongoose.Promise = global.Promise
 mongoose.connection.openUri(`${process.env.MONGOURI}`)
 
-let movieSchema = new Schema({
+let TvSchema = new Schema({
   poster_path: String,
   overview: String,
   title: {
@@ -24,7 +24,7 @@ let movieSchema = new Schema({
   }
 })
 
-movieSchema.pre('update', function(next) {
+TvSchema.pre('update', function(next) {
   this.updateOne({
       _id: this._conditions._id
     }, {
@@ -39,4 +39,4 @@ movieSchema.pre('update', function(next) {
 })
 
 
-module.exports = mongoose.model('Movie', movieSchema)
+module.exports = mongoose.model('Tv', TvSchema)
