@@ -2,6 +2,7 @@
 
 const model = require('./../model');
 const generateResponse = require('./../helpers/generate-response');
+const notifyUpdate = require('./../helpers/notify-update');
 
 const create = async (req, res) => {
   let response;
@@ -9,6 +10,7 @@ const create = async (req, res) => {
   try {
     const created = await model.create(req.body);
     response = generateResponse(200, 'create new tv entry', created, null);
+    notifyUpdate();
   } catch (err) {
     response = generateResponse(500, 'failed to create new tv entry', null, err);
   } finally {
@@ -49,6 +51,7 @@ const update = async (req, res) => {
     const updated = await model.update({_id: req.params.id}, req.body);
     if (updated.n === 0) throw new Error('tv not found');
     response = generateResponse(200, 'update tv', updated, null);
+    notifyUpdate();
   } catch (err) {
     response = generateResponse(500, 'failed to update tv', null, err);
   } finally {
@@ -63,6 +66,7 @@ const destroy = async (req, res) => {
     const destroyed = await model.deleteOne({_id: req.params.id});
     if (destroyed.result.n === 0) throw new Error('tv not found');
     response = generateResponse(200, 'delete tv', destroyed, null);
+    notifyUpdate();
   } catch (err) {
     response = generateResponse(500, 'failed to delete tv', null, err);
   } finally {
