@@ -2,11 +2,13 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
+const cors = require('cors')
 
 const mongoose = require('mongoose')
 const app = express()
 
 // Use Library
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(morgan('dev'))
@@ -30,4 +32,5 @@ app.use('/api/movie',movie)
 
 // Listen
 app.listen(process.env.PORT || 3001, function(){
+  console.log('listen 3001');
 })
