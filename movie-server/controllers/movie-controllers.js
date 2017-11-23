@@ -1,6 +1,26 @@
 let movie = require('../models/movie-model')
 var mongoose = require('mongoose');
 
+// Hapus
+const axios = require('axios')
+const redis = require("redis");
+const client = redis.createClient();
+
+const respond = (data) => {
+  return JSON.stringify(data)
+};
+
+
+const getRepos = (req, res) => {
+  console.log('masuk');
+  axios.get(`http://localhost:3000`)
+  .then(dataMovie => {
+    client.setex('semuafilm', 30, respond(dataMovie))
+  })
+};
+
+
+
 // Create Movie (v)
 const addMovie = (req,res) => {
   movie.create({
@@ -12,6 +32,7 @@ const addMovie = (req,res) => {
   })
   .then((moviedata)=>{
     res.send(moviedata)
+    getRepos()
   })
   .catch((err)=>{
     res.send(err)
@@ -40,6 +61,7 @@ const editMovie = (req,res) => {
   })
   .then((moviedata)=>{
     res.send(moviedata)
+    getRepos()
   })
   .catch((err)=>{
     res.send(err)
@@ -52,6 +74,7 @@ const deleteMovie = (req,res) => {
   })
   .then((moviedata)=>{
     res.send(moviedata)
+    getRepos()
   })
   .catch((err)=>{
     res.send(err)

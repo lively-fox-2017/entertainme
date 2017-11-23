@@ -1,6 +1,26 @@
 let tvseries = require('../models/tvseries-model')
 var mongoose = require('mongoose');
 
+// Hapus
+const axios = require('axios')
+const redis = require("redis");
+const client = redis.createClient();
+
+const respond = (data) => {
+  return JSON.stringify(data)
+};
+
+
+const getRepos = (req, res) => {
+  console.log('masuk');
+  axios.get(`http://localhost:3000`)
+  .then(dataMovie => {
+    client.setex('semuafilm', 30, respond(dataMovie))
+  })
+};
+
+
+
 // Create Movie (v)
 const addTvseries = (req,res) => {
   tvseries.create({
@@ -12,6 +32,7 @@ const addTvseries = (req,res) => {
   })
   .then((moviedata)=>{
     res.send(moviedata)
+    getRepos()
   })
   .catch((err)=>{
     res.send(err)
@@ -40,6 +61,7 @@ const editTvseries = (req,res) => {
   })
   .then((moviedata)=>{
     res.send(moviedata)
+    getRepos()
   })
   .catch((err)=>{
     res.send(err)
@@ -52,6 +74,7 @@ const deleteTvseries = (req,res) => {
   })
   .then((moviedata)=>{
     res.send(moviedata)
+    getRepos()
   })
   .catch((err)=>{
     res.send(err)
