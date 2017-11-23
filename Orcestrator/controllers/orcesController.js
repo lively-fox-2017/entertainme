@@ -30,6 +30,7 @@ module.exports = {
         // console.log(JSON.parse(MovieTV));
 
         client.set('movieTV', MovieTV)
+        client.expire('movieTV', 10)
 
         res.status(200).json({
           message: "Berhasil Tampil Fetch Data dari API",
