@@ -36,6 +36,10 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+// client.on('connect', function () {
+//   console.log("connected");
+// })
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
