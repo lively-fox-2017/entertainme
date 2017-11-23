@@ -12,5 +12,5 @@ app.use(bodyParser.json())
 app.use('/api/movies', movies)
 
 app.listen(3001, () => {
-  console.log('Movies Endpoint listening on port 30001')
+  console.log('Movies Endpoint listening on port 3001')
 })
