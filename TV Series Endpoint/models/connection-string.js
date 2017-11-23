@@ -6,7 +6,7 @@
 
 var url = require('url')
 
-var uri = 'mongodb://127.0.0.1:27017/entertainme_movie';
+var uri = 'mongodb://127.0.0.1:27017/entertainme_tvseries';
 if (!uri) {
   throw new Error(
     '\033[31mYou need to provide the connection string. ' +
