@@ -1,0 +1,17 @@
+{
+  "name": "entertainme",
+  "version": "1.0.0",
+  "description": "Redis challenge",
+  "main": "index.js",
+  "repository": "https://github.com/NNcrawler/entertainme.git",
+  "author": "NNcrawler <rasyid.xyz@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.4"
+  },
+  "scripts": {
+    "dev": "nodemon index.js"
+  }
+}
