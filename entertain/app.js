@@ -1,0 +1,15 @@
+const express = require('express')
+const app = express()
+const cors = require('cors')
+const bodyParser = require('body-parser')
+const responseTime = require('response-time')
+const router = require('./routes/entertaiment')
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
+app.use(cors())
+app.use(responseTime())
+app.use('/entertainme', router)
+app.listen(3009, function (err) {
+ if (err) throw err
+ console.log(`server listening on 3000`)
+})
