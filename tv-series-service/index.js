@@ -13,7 +13,9 @@ app.use(bodyParser.json());
 app.use('/tv-series', tvSeriesRoutes);
 
 app.use((req, res) => {
-  res.status(404).json({});
+  res.status(404).json({
+    message: 'Endpoint not found'
+  });
 });
 
 app.listen(port, console.log('TV Series Service running on port', port));
