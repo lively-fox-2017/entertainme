@@ -9,8 +9,14 @@ fastify.get('/api/entertainme', async function (request, reply) {
   var series = await cache.getTvData()
   reply.send({
     status: 'ok',
-    movies: movies,
-    series: series
+    movies: {
+      source: movies.source,
+      movies: movies.data
+    },
+    series: {
+      source: series.source,
+      movies: series.data
+    }
   })
 })
 

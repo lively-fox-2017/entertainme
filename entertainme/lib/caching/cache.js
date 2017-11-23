@@ -39,11 +39,17 @@ async function getMoviesData () {
     var redisData = await movieDataFromRedis.then((res) => {
       return res
     })
-    return redisData
+    return {
+      source: 'redis',
+      data: redisData
+    }
   } else {
     var moviesData = await Movies.getMovies()
     client.set("movies", JSON.stringify(moviesData.data))
-    return moviesData.data
+    return {
+      source: 're-request',
+      data: moviesData.data
+    }
   }
 }
 
@@ -84,12 +90,17 @@ async function getTvData () {
     var redisData = await tvDataFromRedis.then((res) => {
       return res
     })
-    return redisData
+    return {
+      source: 'redis',
+      data: redisData
+    }
   } else {
     var tvData = await Tv.getTvSeries()
     client.set("tv", JSON.stringify(tvData))
-
-    return tvData
+    return {
+      source: 're-request',
+      data: tvData
+    }
   }
 }
 
