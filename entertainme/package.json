@@ -1,0 +1,17 @@
+{
+  "name": "entertainme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "fastify": "^0.35.1",
+    "redis": "^2.8.0"
+  }
+}
