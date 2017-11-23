@@ -9,6 +9,16 @@ async function getTvSeries() {
   }
 }
 
+async function getTvVer () {
+  try {
+    var {data} = await axios.get('http://localhost:3002/api/tv/version')
+    return data
+  } catch (e) {
+    return e
+  }
+}
+
 module.exports = {
-  getTvSeries
+  getTvSeries,
+  getTvVer
 }
