@@ -4,11 +4,13 @@ const model = require('./../model');
 const generateResponse = require('./../helpers/generate-response');
 
 const create = async (req, res) => {
+  let response;
+
   try {
     const created = await model.create(req.body);
-    const response = generateResponse(200, 'create new movie entry', created, null);
+    response = generateResponse(200, 'create new movie entry', created, null);
   } catch (err) {
-    const response = generateResponse(500, 'failed to create new movie entry', null, err);
+    response = generateResponse(500, 'failed to create new movie entry', null, err);
   } finally {
     res.status(response.status).send(response);
   }
@@ -58,7 +60,7 @@ const destroy = async (req, res) => {
   let response;
 
   try {
-    const destroyed = await model.destroy({_id: req.params.id});
+    const destroyed = await model.deleteOne({_id: req.params.id});
     if (destroyed.result.n === 0) throw new Error('movie not found');
     response = generateResponse(200, 'delete movie', destroyed, null);
   } catch (err) {
