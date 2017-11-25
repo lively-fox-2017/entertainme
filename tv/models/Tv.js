@@ -3,6 +3,8 @@ const Schema = mongoose.Schema
 mongoose.Promise = global.Promise
 mongoose.connection.openUri(`${process.env.MONGOURI}`)
 
+const TvCounter = require('./TvCounter')
+
 let TvSchema = new Schema({
   poster_path: String,
   overview: String,
@@ -24,18 +26,67 @@ let TvSchema = new Schema({
   }
 })
 
-TvSchema.pre('update', function(next) {
+tvSchema.pre('save', function(next) {
+  MovieCounter
+    .findOneAndUpdate({
+      name: 'tv'
+    }, {
+      name: 'tv',
+      $inc: {version: 1}
+    }, {
+      new: true,
+      upsert: true
+    })
+    .then(version => {
+      next()
+    })
+    .catch(reason => {
+      console.error(reason)
+      next(reason)
+    })
+})
+
+tvSchema.pre('findOneAndUpdate', function(next) {
   this.updateOne({
       _id: this._conditions._id
     }, {
       updatedAt: Date.now()
     })
     .then(() => {
-      next();
+      MovieCounter
+        .findOneAndUpdate({
+          name: 'tv'
+        }, {
+          name: 'tv',
+          $inc: {version: 1}
+        }, {
+          new: true,
+          upsert: true
+        })
+        .then(version => {
+          next()
+        })
     })
     .catch(reason => {
-      console.log(reason)
-    });
+      console.error(reason)
+      next(reason)
+    })
+})
+
+tvSchema.pre('findOneAndRemove', function(next) {
+  MovieCounter
+    .findOneAndUpdate({
+      name: 'tv'
+    }, {
+      name: 'tv',
+      $inc: {version: 1}
+    }, {
+      new: true,
+      upsert: true
+    })
+    .then(version => {
+      next()
+    })
 })
 
 

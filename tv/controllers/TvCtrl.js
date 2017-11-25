@@ -31,7 +31,7 @@ class TvCtrl {
 
   static updateTv (req, res, next) {
     Tv.findOneAndUpdate({
-        _id: new mongoose.Schema.Types.ObjectId(req.params.tvId)
+        _id: new mongoose.Types.ObjectId(req.params.tvId)
       }, req.body)
       .then((updated) => {
         res.code(200).send(updated);
@@ -44,7 +44,7 @@ class TvCtrl {
 
   static deleteTv (req, res, next) {
     Tv.findOneAndRemove({
-        _id: new mongoose.Schema.Types.ObjectId(req.params.tvId)
+        _id: new mongoose.Types.ObjectId(req.params.tvId)
       })
       .then((value) => {
         res.code(200).send(value);
