@@ -31,7 +31,7 @@ class MovieCtrl {
 
   static updateMovie (req, res, next) {
     Movie.findOneAndUpdate({
-        _id: new mongoose.Schema.Types.ObjectId(req.params.movieId)
+        _id: new mongoose.Types.ObjectId(req.params.movieId)
       }, req.body)
       .then((updated) => {
         res.code(200).send(updated);
@@ -44,7 +44,7 @@ class MovieCtrl {
 
   static deleteMovie (req, res, next) {
     Movie.findOneAndRemove({
-        _id: new mongoose.Schema.Types.ObjectId(req.params.movieId)
+        _id: new mongoose.Types.ObjectId(req.params.movieId)
       })
       .then((value) => {
         res.code(200).send(value);
