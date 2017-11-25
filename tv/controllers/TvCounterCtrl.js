@@ -2,9 +2,9 @@ const TvCounter = require('../models/TvCounter')
 
 class TvCounterCtrl {
   static getVersion (req, res, next) {
-    MovieCounter.findOne({name: 'tv'})
-      .then(({version}) => {
-        res.code(400).send({version});
+    TvCounter.findOne({name: 'tv'})
+      .then((value) => {
+        res.code(400).send(value)
       })
   }
 }

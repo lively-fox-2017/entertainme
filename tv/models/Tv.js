@@ -26,7 +26,7 @@ let TvSchema = new Schema({
   }
 })
 
-tvSchema.pre('save', function(next) {
+TvSchema.pre('save', function(next) {
   MovieCounter
     .findOneAndUpdate({
       name: 'tv'
@@ -46,7 +46,7 @@ tvSchema.pre('save', function(next) {
     })
 })
 
-tvSchema.pre('findOneAndUpdate', function(next) {
+TvSchema.pre('findOneAndUpdate', function(next) {
   this.updateOne({
       _id: this._conditions._id
     }, {
@@ -73,7 +73,7 @@ tvSchema.pre('findOneAndUpdate', function(next) {
     })
 })
 
-tvSchema.pre('findOneAndRemove', function(next) {
+TvSchema.pre('findOneAndRemove', function(next) {
   MovieCounter
     .findOneAndUpdate({
       name: 'tv'
