@@ -9,6 +9,5 @@ module.exports = function (fastify, opts, next) {
     fastify.get('/single/:id', TvController.singleMovies)
     fastify.put('/:id', TvController.updateMovies)
     fastify.delete('/:id', TvController.removeMovies)
-
     next()
 }
