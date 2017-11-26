@@ -1,13 +1,14 @@
+const express = require('express')
+const router = express.Router()
+
 const TvCtrl = require('../controllers/TvCtrl')
 const TvCounterCtrl = require('../controllers/TvCounterCtrl')
 
-module.exports = function (fastify, opts, next) {
-  fastify.post('/post_tv', TvCtrl.postTv)
-  fastify.get('/get_tv', TvCtrl.getTvs)
-  fastify.get('/get_version', TvCounterCtrl.getVersion)
-  fastify.get('/get_tv/:tvId?', TvCtrl.getTvs)
-  fastify.put('/update_tv/:tvId', TvCtrl.updateTv)
-  fastify.delete('/delete_tv/:tvId', TvCtrl.deleteTv)
+router.post('/post_tv', TvCtrl.postTv)
+router.get('/get_tv', TvCtrl.getTvs)
+router.get('/get_version', TvCounterCtrl.getVersion)
+router.get('/get_tv/:tvId?', TvCtrl.getTvs)
+router.put('/update_tv/:tvId', TvCtrl.updateTv)
+router.delete('/delete_tv/:tvId', TvCtrl.deleteTv)
 
-  next()
-}
+module.exports = router

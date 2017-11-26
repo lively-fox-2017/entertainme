@@ -27,7 +27,7 @@ let TvSchema = new Schema({
 })
 
 TvSchema.pre('save', function(next) {
-  MovieCounter
+  TvCounter
     .findOneAndUpdate({
       name: 'tv'
     }, {
@@ -53,7 +53,7 @@ TvSchema.pre('findOneAndUpdate', function(next) {
       updatedAt: Date.now()
     })
     .then(() => {
-      MovieCounter
+      TvCounter
         .findOneAndUpdate({
           name: 'tv'
         }, {
@@ -74,7 +74,7 @@ TvSchema.pre('findOneAndUpdate', function(next) {
 })
 
 TvSchema.pre('findOneAndRemove', function(next) {
-  MovieCounter
+  TvCounter
     .findOneAndUpdate({
       name: 'tv'
     }, {

@@ -6,10 +6,10 @@ class TvCtrl {
   static postTv (req, res) {
     Tv.create(req.body)
       .then((inserted) => {
-        res.code(201).send(inserted);
+        res.status(201).json(inserted);
       })
       .catch((err) => {
-        res.code(400).send(err);
+        res.status(400).json(err);
       })
   }
 
@@ -19,12 +19,12 @@ class TvCtrl {
           _id: req.params.tvId
         })
         .then((tvs) => {
-          res.code(400).send(tvs);
+          res.status(400).json(tvs);
         })
     } else {
       Tv.find({})
         .then((tvs) => {
-          res.code(400).send(tvs);
+          res.status(400).json(tvs);
         })
     }
   }
@@ -34,11 +34,11 @@ class TvCtrl {
         _id: new mongoose.Types.ObjectId(req.params.tvId)
       }, req.body)
       .then((updated) => {
-        res.code(200).send(updated);
+        res.status(200).json(updated);
       })
       .catch((err) => {
         console.error(err);
-        res.code(400).send(err);
+        res.status(400).json(err);
       })
   }
 
@@ -47,11 +47,11 @@ class TvCtrl {
         _id: new mongoose.Types.ObjectId(req.params.tvId)
       })
       .then((value) => {
-        res.code(200).send(value);
+        res.status(200).json(value);
       })
       .catch((err) => {
         console.error(err);
-        res.code(400).send(err);
+        res.status(400).json(err);
       })
   }
 

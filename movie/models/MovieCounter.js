@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 mongoose.Promise = global.Promise
-mongoose.connection.openUri(`${process.env.MONGOURI}`);
+mongoose.connection.openUri(`${process.env.MONGOURI}`)
 
 let MovieCounterSchema = new Schema({
   name: String,

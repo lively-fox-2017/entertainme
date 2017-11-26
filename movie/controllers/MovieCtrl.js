@@ -6,10 +6,10 @@ class MovieCtrl {
   static postMovie (req, res) {
     Movie.create(req.body)
       .then((inserted) => {
-        res.code(201).send(inserted);
+        res.status(201).json(inserted);
       })
       .catch((err) => {
-        res.code(400).send(err);
+        res.status(400).json(err);
       })
   }
 
@@ -19,12 +19,12 @@ class MovieCtrl {
           _id: req.params.movieId
         })
         .then((movies) => {
-          res.code(400).send(movies);
+          res.status(400).json(movies);
         })
     } else {
       Movie.find({})
         .then((movies) => {
-          res.code(400).send(movies);
+          res.status(400).json(movies);
         })
     }
   }
@@ -34,11 +34,11 @@ class MovieCtrl {
         _id: new mongoose.Types.ObjectId(req.params.movieId)
       }, req.body)
       .then((updated) => {
-        res.code(200).send(updated);
+        res.status(200).json(updated);
       })
       .catch((err) => {
         console.error(err);
-        res.code(400).send(err);
+        res.status(400).json(err);
       })
   }
 
@@ -47,11 +47,11 @@ class MovieCtrl {
         _id: new mongoose.Types.ObjectId(req.params.movieId)
       })
       .then((value) => {
-        res.code(200).send(value);
+        res.status(200).json(value);
       })
       .catch((err) => {
         console.error(err);
-        res.code(400).send(err);
+        res.status(400).json(err);
       })
   }
 
