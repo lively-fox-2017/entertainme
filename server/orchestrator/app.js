@@ -53,42 +53,65 @@ fastify.get('/movies', async (req, res) => {
 fastify.get('/', async (req,res) => {
     let moviesData, tvData='string'
 
-    client.get('tv', async (err,resultTv) =>{
-        if (err) res.send(err)
-        if (resultTv) {
-            console.log('from client.tv')
+    // client.get('tv', async (err,resultTv) =>{
+    //     if (err) res.send(err)
+    //     if (resultTv) {
+    //         console.log('from redis client.tv')
+    //         tvData = resultTv
+    //     } else {
+    //         const fetchTvData = await httpTV.get('')
+    //         console.log('fetchTvData.data')
+    //         tvData = JSON.stringify(fetchTvData.data)
+    //     }
+    //     client.get('movies', async (err,resultMovies) =>{
+    //         if (err) res.send(err)
+    //         if (resultMovies) {
+    //             console.log('from redis client.movies')
+    //             moviesData = resultMovies
+    //         } else {
+    //             const fetchMoviesData = await httpMovies.get('')
+    //             console.log('fetchMoviesData.data')
+    //             moviesData = JSON.stringify(fetchMoviesData.data)
+    //         }
+    //         res.send({
+    //             tvOrchestrator: tvData,
+    //             moviesOrchestrator: moviesData
+    //         })
+
+    //     })
+    // })
+ 
+    try {
+        const resultTv = await client.get('tv')
+        console.log('from redis client.tv', resultTv)
+        if (resultTv.length) {
             tvData = resultTv
         } else {
             const fetchTvData = await httpTV.get('')
-            console.log('fetchTvData.data')
+            console.log('fetchTvData.data', fetchTvData.data)
             tvData = JSON.stringify(fetchTvData.data)
         }
-        client.get('movies', async (err,resultMovies) =>{
-            if (err) res.send(err)
-            if (resultMovies) {
-                console.log('from client.movies')
+        try {
+            const resultMovies = await client.get('movies')
+            console.log('from redis client.movies', resultMovies)
+            if (resultMovies.length) {
                 moviesData = resultMovies
             } else {
                 const fetchMoviesData = await httpMovies.get('')
-                console.log('fetchMoviesData.data')
+                console.log('fetchMoviesData.data', fetchMoviesData.data)
                 moviesData = JSON.stringify(fetchMoviesData.data)
             }
             res.send({
                 tvOrchestrator: tvData,
                 moviesOrchestrator: moviesData
             })
-
-        })
-    })
- 
-    // try {
-    //     let redisTv = await client.get('tv')
-    //     console.log(redisTv)
-    //     res.send('redisTv')
-    // } catch (err) {
-    //     console.log(err)
-    //     throw err
-    // }
+        } catch (err) {
+            console.error(err)
+        }
+    } catch (err) {
+        console.error(err)
+        throw err
+    }
 })
 
 
