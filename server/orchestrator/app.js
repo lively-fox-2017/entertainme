@@ -30,7 +30,6 @@ fastify.get('/tv', async (req,res)=>{
         client.set('tv', JSON.stringify(data))
         if (data) res.send(data)
         res.send(false)
-        
             // res.send(data)
     } catch (err) {
             console.log(err)
@@ -51,67 +50,68 @@ fastify.get('/movies', async (req, res) => {
 })
 
 fastify.get('/', async (req,res) => {
-    let moviesData, tvData='string'
+    let moviesData, tvData
 
-    // client.get('tv', async (err,resultTv) =>{
-    //     if (err) res.send(err)
-    //     if (resultTv) {
-    //         console.log('from redis client.tv')
-    //         tvData = resultTv
-    //     } else {
-    //         const fetchTvData = await httpTV.get('')
-    //         console.log('fetchTvData.data')
-    //         tvData = JSON.stringify(fetchTvData.data)
-    //     }
-    //     client.get('movies', async (err,resultMovies) =>{
-    //         if (err) res.send(err)
-    //         if (resultMovies) {
-    //             console.log('from redis client.movies')
-    //             moviesData = resultMovies
-    //         } else {
-    //             const fetchMoviesData = await httpMovies.get('')
-    //             console.log('fetchMoviesData.data')
-    //             moviesData = JSON.stringify(fetchMoviesData.data)
-    //         }
-    //         res.send({
-    //             tvOrchestrator: tvData,
-    //             moviesOrchestrator: moviesData
-    //         })
-
-    //     })
-    // })
- 
-    try {
-        const resultTv = await client.get('tv')
-        console.log('from redis client.tv', resultTv)
-        if (resultTv.length) {
+    client.get('tv', async (err,resultTv) =>{
+        if (err) res.send(err)
+        if (resultTv) {
+            console.log('from redis client.tv',resultTv)
             tvData = resultTv
         } else {
             const fetchTvData = await httpTV.get('')
-            console.log('fetchTvData.data', fetchTvData.data)
+            console.log('fetchTvData.data')
             tvData = JSON.stringify(fetchTvData.data)
         }
-        try {
-            const resultMovies = await client.get('movies')
-            console.log('from redis client.movies', resultMovies)
-            if (resultMovies.length) {
+        client.get('movies', async (err,resultMovies) =>{
+            if (err) res.send(err)
+            if (resultMovies) {
+                console.log('from redis client.movies', resultMovies)
                 moviesData = resultMovies
             } else {
                 const fetchMoviesData = await httpMovies.get('')
-                console.log('fetchMoviesData.data', fetchMoviesData.data)
+                console.log('fetchMoviesData.data')
                 moviesData = JSON.stringify(fetchMoviesData.data)
             }
             res.send({
                 tvOrchestrator: tvData,
                 moviesOrchestrator: moviesData
             })
-        } catch (err) {
-            console.error(err)
-        }
-    } catch (err) {
-        console.error(err)
-        throw err
-    }
+
+        })
+    })
+ 
+    // try {
+    //     const resultTv = await client.get('tv')
+    //     console.log('from redis client.tv', resultTv)
+    //     if (resultTv.length) {
+    //         tvData = resultTv
+    //     } else {
+    //         const fetchTvData = await httpTV.get('')
+    //         console.log('fetchTvData.data', fetchTvData.data)
+    //         tvData = JSON.stringify(fetchTvData.data)
+    //     }
+    //     try {
+    //         const resultMovies = await client.get('movies')
+    //         console.log('from redis client.movies', resultMovies)
+    //         if (resultMovies.length) {
+    //             moviesData = resultMovies
+    //         } else {
+    //             const fetchMoviesData = await httpMovies.get('')
+    //             console.log('fetchMoviesData.data', fetchMoviesData.data)
+    //             moviesData = JSON.stringify(fetchMoviesData.data)
+    //         }
+    //         res.send({
+    //             tvOrchestrator: tvData,
+    //             moviesOrchestrator: moviesData
+    //         })
+    //     } catch (err) {
+    //         console.error(err)
+    //         throw err
+    //     }
+    // } catch (err) {
+    //     console.error(err)
+    //     throw err
+    // }
 })
 
 
