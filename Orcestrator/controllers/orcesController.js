@@ -1,7 +1,9 @@
+const graphQLHTTP = require('express-graphql')
 const redis = require('redis')
 const client = redis.createClient()
 
 const movieTV = require('../models/movieTv')
+const appSchema = require('../models/AppSchema')
 
 function checkCache() {
   return new Promise((resolve, reject) => {
@@ -42,5 +44,10 @@ module.exports = {
         message: reason
       })
     }
-  }
+  },
+
+  graphQL: () => graphQLHTTP({
+    schema: appSchema,
+    graphiql: true,
+  })
 }
