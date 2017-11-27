@@ -14,12 +14,21 @@ const Fields = {
   title: {
     type: new GraphQLNonNull(GraphQLString),
   },
+  overview: {
+    type: GraphQLString,
+  },
+  poster_path: {
+    type: GraphQLString,
+  },
   popularity: {
     type: GraphQLInt,
   },
   tag: {
     type: new GraphQLList(GraphQLString),
-  }
+  },
+  status: {
+    type: GraphQLString,
+  },
 };
 
 const SeriesType = new GraphQLObjectType({
