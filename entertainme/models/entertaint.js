@@ -5,7 +5,8 @@ class modelentertaint {
     try{
       const apiMOvies = await axios.get('http://localhost:3001/movies')
       const apiTV = await axios.get('http://localhost:3002/TV')
-      return JSON.stringify({movie:apiMOvies.data,series:apiTV.data})
+      const myapi = JSON.stringify({movie:apiMOvies.data,series:apiTV.data})
+      return myapi
     }catch (err){
       return err
     }
