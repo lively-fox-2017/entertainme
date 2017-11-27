@@ -3,7 +3,11 @@ class Tv{
   static getAll(req, res) {
       model.find()
       .then(data => {
-        res.send(data)
+        const result = {
+          info: 'tv found successfuly',
+          data: data
+        }
+        res.send(result)
       })
       .catch(err => {
         res.error({err: err})
