@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 const responseTime = require('response-time')
 const redis = require('redis')
 const client = redis.createClient()
+const cors = require('cors')
 
 var index = require('./routes/index');
 var movieTV = require('./routes/movieTV');
@@ -20,6 +21,7 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(responseTime())
+app.use(cors())
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -21,6 +21,9 @@ const MovieType = new GraphQLObjectType({
     popularity: {
       type: GraphQLInt
     },
+    poster_path: {
+      type: GraphQLString
+    },
     tag: {
       type: new GraphQLList(GraphQLString)
     }
@@ -38,6 +41,9 @@ const TVType = new GraphQLObjectType({
     },
     popularity: {
       type: GraphQLInt
+    },
+    poster_path: {
+      type: GraphQLString
     },
     tag: {
       type: new GraphQLList(GraphQLString)
