@@ -10,19 +10,7 @@ const graphqlHTTP = require('express-graphql');
 const app = express();
 
 const schema = buildSchema(`
-  type Movie {
-    _id: ID!,
-    updatedAt: String,
-    createdAt: String,
-    title: String,
-    overview: String,
-    poster_path: String,
-    popularity: Float,
-    tag: [String],
-    status: String
-  }
-
-  type Tv {
+  type Entertainme {
     _id: ID!,
     updatedAt: String,
     createdAt: String,
@@ -35,88 +23,68 @@ const schema = buildSchema(`
   }
 
   type Query {
-    movies: [Movie],
-    tvs: [Tv],
-    getMovieById(_id: ID!): Movie,
-    getTvById(_id: ID!): Tv,
-    getMovieWithPopularityMoreThan(popularity: Float): [Movie],
-    getTvWithPopularityMoreThan(popularity: Float): [Tv]
+    movies: [Entertainme],
+    tvs: [Entertainme],
+    getMovieById(_id: ID!): Entertainme,
+    getTvById(_id: ID!): Entertainme,
+    getMovieWithPopularityMoreThan(popularity: Float): [Entertainme],
+    getTvWithPopularityMoreThan(popularity: Float): [Entertainme]
   }
 `);
 
 const root = {
-  movies: () => {
-    return new Promise ((resolve, reject) => {
-      axios.get('http://localhost:3001/movie')
-      .then(resp => {
-        resolve(resp.data.payload);
-      })
-      .catch(err => {
-        reject(err);
-      });
-    });
+  movies: async () => {
+    try {
+      const { data } = await axios.get('http://localhost:3001/movie');
+      return data.payload;
+    } catch (err) {
+      return err;
+    }
   },
 
-  tvs: () => {
-    return new Promise((resolve, reject) => {
-      axios.get('http://localhost:3002/tv')
-      .then(resp => {
-        resolve(resp.data.payload);
-      })
-      .catch(err => {
-        reject(err);
-      });
-    });
+  tvs: async () => {
+    try {
+      const { data } = await axios.get('http://localhost:3002/tv');
+      return data.payload;
+    } catch (err) {
+      return err;
+    }
   },
 
-  getMovieById: ({_id}) => {
-    return new Promise((resolve, reject) => {
-      axios.get(`http://localhost:3001/movie/${_id}`)
-      .then(resp => {
-        resolve(resp.data.payload);
-      })
-      .catch(err => {
-        reject(err);
-      });
-    });
+  getMovieById: async ({_id}) => {
+    try {
+      const { data } = await axios.get(`http://localhost:3001/movie/${_id}`);
+      return data.payload;
+    } catch (err) {
+      return err;
+    }
   },
 
-  getTvById: ({_id}) => {
-    return new Promise((resolve, reject) => {
-      axios.get(`http://localhost:3002/tv/${_id}`)
-      .then(resp => {
-        resolve(resp.data.payload);
-      })
-      .catch(err => {
-        reject(err);
-      });
-    });
+  getTvById: async ({_id}) => {
+    try {
+      const { data } = await axios.get(`http://localhost:3002/tv/${_id}`);
+      return data.payload;
+    } catch (err) {
+      return err;
+    }
   },
 
-  getMovieWithPopularityMoreThan: ({popularity}) => {
-    return new Promise((resolve, reject) => {
-      axios.get('http://localhost:3001/movie')
-      .then(resp => {
-        const movies = resp.data.payload.filter(movie => movie.popularity >= popularity)
-        resolve(movies);
-      })
-      .catch(err => {
-        reject(err);
-      });
-    });
+  getMovieWithPopularityMoreThan: async ({popularity}) => {
+    try {
+      const { data } = await axios.get('http://localhost:3001/movie');
+      return data.payload.filter(movie => movie.popularity >= popularity);
+    } catch (err) {
+      return err;
+    }
   },
 
-  getTvWithPopularityMoreThan: ({popularity}) => {
-    return new Promise((resolve, reject) => {
-      axios.get('http://localhost:3002/tv')
-      .then(resp => {
-        const tvs = resp.data.payload.filter(tv => tv.popularity >= popularity)
-        resolve(tvs);
-      })
-      .catch(err => {
-        reject(err);
-      });
-    });
+  getTvWithPopularityMoreThan: async ({popularity}) => {
+    try {
+      const { data } = await axios.get('http://localhost:3002/tv');
+      return data.payload.filter(tv => tv.popularity >= popularity);
+    } catch (err) {
+      return err;
+    }
   }
 };
 
