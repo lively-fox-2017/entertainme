@@ -19,12 +19,12 @@ class MovieCtrl {
           _id: req.params.movieId
         })
         .then((movies) => {
-          res.status(400).json(movies);
+          res.status(200).json(movies);
         })
     } else {
       Movie.find({})
         .then((movies) => {
-          res.status(400).json(movies);
+          res.status(200).json(movies);
         })
     }
   }

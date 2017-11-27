@@ -21,16 +21,17 @@ module.exports = function () {
        if (parseInt(versionCache) >= versionAPI) {
          client.getAsync('tvs')
           .then(tvsCache => {
-            resolve(tvsCache)
+            resolve({source: 'redis', ...JSON.parse(tvsCache)})
           })
           .catch(reason => {
             console.error(reason)
             reject(reason)
           })
        } else {
-         //  const tvsAPI = 'asdasd'
          const tvsAPI = await tvsData()
-         resolve(tvsAPI)
+         client.set('tvsVersion', versionAPI)
+         client.set('tvs', JSON.stringify(tvsAPI))
+         resolve({source: 'API', ...tvsAPI})
        }
      })
      .catch(reason => {

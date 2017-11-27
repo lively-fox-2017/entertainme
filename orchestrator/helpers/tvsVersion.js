@@ -6,7 +6,7 @@ const tvsAxios = axios.create({
 
 module.exports = async function () {
   try {
-    const data = await tvsAxios('get_version')
+    const data = await tvsAxios.get('get_version')
     if (data) {
       return data.data
     } else {

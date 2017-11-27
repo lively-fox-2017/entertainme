@@ -1,4 +1,3 @@
-const redis = require('redis')
 const axios = require('axios')
 
 const tvsAxios = axios.create({
@@ -7,7 +6,7 @@ const tvsAxios = axios.create({
 
 module.exports = async function () {
   try {
-    const data = await tvsAxios('get_tv')
+    const data = await tvsAxios.get('get_tv')
     if (data) {
       return data.data
     } else {

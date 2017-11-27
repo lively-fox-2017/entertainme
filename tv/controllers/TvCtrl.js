@@ -19,12 +19,12 @@ class TvCtrl {
           _id: req.params.tvId
         })
         .then((tvs) => {
-          res.status(400).json(tvs);
+          res.status(200).json(tvs);
         })
     } else {
       Tv.find({})
         .then((tvs) => {
-          res.status(400).json(tvs);
+          res.status(200).json(tvs);
         })
     }
   }

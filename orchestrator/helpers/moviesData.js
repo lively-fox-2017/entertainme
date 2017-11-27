@@ -1,4 +1,3 @@
-const redis = require('redis')
 const axios = require('axios')
 
 const moviesAxios = axios.create({
@@ -6,6 +5,7 @@ const moviesAxios = axios.create({
 })
 
 async function movieData () {
+
   try {
     const data = await moviesAxios.get('get_movie')
     if (data) {

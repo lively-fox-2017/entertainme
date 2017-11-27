@@ -5,7 +5,6 @@ class MovieCounterCtrl {
     MovieCounter.findOne({name: 'movie'})
       .then(data => {
         if (data) {
-          console.log(data);
           res.status(200).json(data.version)
         } else {
           res.status(200).json(data)
