@@ -6,7 +6,17 @@ const client = redis.createClient();
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  // client.set("string key", "string val")
+  // res.send((Math.floor(Date.now() / 1000)).toString());
+  const lastDataUpdate = await new Promise(function(resolve, reject) {
+    client.get("lastDataUpdate", (err, reply) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(reply);
+      }
+    });
+  });
+
   let returnedValue = null;
   const cachedItem = await new Promise(function(resolve, reject) {
     client.get("returnedValue", (err, reply) => {

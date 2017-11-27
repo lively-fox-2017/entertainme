@@ -1,6 +1,9 @@
 const express = require('express');
 const Movie = require('./models/Movie');
 const mongoose = require('mongoose');
+const redis = require('redis');
+
+const client = redis.createClient();
 
 const router = express.Router();
 
@@ -14,6 +17,7 @@ router.post('/', (req, res) => {
     'status': req.body.popularity,
   })
   .then((movie) => {
+    client.set('movieUpdateDate', (Math.floor(Date.now() / 1000)).toString());
     res.status(200).send(JSON.stringify(movie));
   })
   .catch((err) => {
@@ -32,6 +36,7 @@ router.get('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
+    console.log(req.body);
     let movie = await Movie.findOne({_id: mongoose.Types.ObjectId(req.params.id)});
     if (movie) {
       movie.title = req.body.title || movie.title;
@@ -53,7 +58,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     let movie = await Movie.findOneAndRemove({_id: mongoose.Types.ObjectId(req.params.id)});
-    res.send(json.stringify(JSON.stringify(movie)))
+    res.send(JSON.stringify(movie))
   } catch (e) {
     res.status(500).send({e, message: 'err'})
   }
