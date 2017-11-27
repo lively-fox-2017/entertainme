@@ -21,7 +21,7 @@ module.exports = function () {
        if (parseInt(versionCache) >= versionAPI) {
          client.getAsync('movies')
           .then(moviesCache => {
-            resolve({source: 'redis', ...JSON.parse(moviesCache)})
+            resolve({source: 'redis', movies: JSON.parse(moviesCache)})
           })
           .catch(reason => {
             console.error(reason)
@@ -31,7 +31,7 @@ module.exports = function () {
          const moviesAPI = await moviesData()
          client.set('moviesVersion', versionAPI)
          client.set('movies', JSON.stringify(moviesAPI))
-         resolve({source: 'API', ...moviesAPI})
+         resolve({source: 'API', movies: moviesAPI})
        }
      })
      .catch(reason => {
