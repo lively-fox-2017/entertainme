@@ -1,13 +1,32 @@
 'use strict'
 const fastify = require('fastify')()
 const axios = require('axios')
+const cors = require('cors');
+const bodyParser = require('fastify-formbody');
 const redis = require("redis"),
     client = redis.createClient(6379);
 const responseTime = require('response-time')()
+const { graphqlFastify,graphiqlFastify } = require("fastify-apollo");
 
-fastify.get('/', (req, reply) => {
-  reply.send({server_name : 'entertainme server'})
+const AppSchema = require('./schema')
+
+fastify.use(cors())
+
+fastify.register(bodyParser, {})
+
+fastify.register(graphqlFastify, {
+  schema: AppSchema,
+  prefix: "/graphql"
 })
+
+fastify.register(graphiqlFastify, {
+  endpointURL: "/graphql",
+  prefix: "/graphiql"
+})
+
+// fastify.get('/', (req, reply) => {
+//   reply.send({server_name : 'entertainme server'})
+// })
 
 fastify.get('/entertainme', async function (req, reply) {
   try {
