@@ -1,0 +1,25 @@
+{
+  "name": "entertainme",
+  "version": "1.0.0",
+  "description": "entertainme orchestrator",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=dev nodemon index.js"
+  },
+  "repository": "git@github.com:deathmitri/entertainme.git",
+  "author": "Dimitri Wahyudiputra <deathmitri@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.11",
+    "graphql": "^0.11.7",
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
