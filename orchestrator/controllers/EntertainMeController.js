@@ -1,4 +1,7 @@
+const graphqlHTTP = require('express-graphql');
+
 const EntertainMe = require('../models/EntertainMe');
+const AppSchema = require('../models/AppSchema');
 
 const EntertainMeController = {
   flushCache: (req, res) => {
@@ -15,6 +18,10 @@ const EntertainMeController = {
       res.status(400).json(err);
     }
   },
+  graphql: () => graphqlHTTP({
+    schema: AppSchema,
+    graphiql: true,
+  }),
 };
 
 module.exports = EntertainMeController;
