@@ -8,32 +8,24 @@ var {
 var MovieType = require('./MovieType')
 var TvSeriesType = require('./TvSeriesType')
 var axios = require('axios')
+const MovieModule = require('./MovieModule')
+const TvSeriesModule = require('./TvSeriesModule')
 
 let QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
     movies: {
       type: new GraphQLList(MovieType),
-      resolve: () => {
-        return new Promise((resolve, reject) => {
-          axios.get('http://localhost:3001/movies')
-          .then(data => {
-              // console.log('asdfasdss', data.data.data);
-            resolve(data.data.data)
-          })
-        })
+      resolve: async () => {
+        // console.log('ini data movie',await MovieModule());
+        return await MovieModule()
       }
     },
     tv_series: {
       type: new GraphQLList(TvSeriesType),
-      resolve: () => {
-        return new Promise((resolve, reject) => {
-          axios.get('http://localhost:3002/tv_series')
-          .then(data => {
-              // console.log('asdfasdss', data.data.data);
-            resolve(data.data.data)
-          })
-        })
+      resolve: async () => {
+        // console.log('ini data tv series',await TvSeriesModule());
+        return await TvSeriesModule()
       }
     }
   })
