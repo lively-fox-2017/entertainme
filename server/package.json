@@ -10,6 +10,8 @@
     "fastify": "^0.35.1",
     "fastify-formbody": "^1.0.1",
     "fastify-router": "^1.1.0",
-    "mongoose": "^4.13.4"
+    "graphql": "^0.11.7",
+    "mongoose": "^4.13.4",
+    "redis": "^2.8.0"
   }
 }

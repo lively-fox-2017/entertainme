@@ -28,6 +28,7 @@ class TvClass {
                 tag: req.body.tag,
                 status: req.body.status
             })
+            
             res.send({
                 msg: 'POST data Success',
                 data:result
@@ -65,7 +66,6 @@ class TvClass {
                 // $addToSet: { tag: req.body.tag}
             })
             res.send(result)
-
         } catch (err) {
             console.error(err)
             res.send(err)
