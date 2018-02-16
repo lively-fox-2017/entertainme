@@ -24,7 +24,6 @@ const httpTV = axios.create({
 })
 
 fastify.get('/tv', async (req,res)=>{
-    // console.log('halooooooooooooooooooooooo');
     try {
         const {data} = await httpTV.get('')
         client.set('tv', JSON.stringify(data))
@@ -60,6 +59,7 @@ fastify.get('/', async (req,res) => {
         } else {
             const fetchTvData = await httpTV.get('')
             console.log('fetchTvData.data')
+            client.set('tv', JSON.stringify(fetchTvData.data))
             tvData = JSON.stringify(fetchTvData.data)
         }
         client.get('movies', async (err,resultMovies) =>{
@@ -70,6 +70,7 @@ fastify.get('/', async (req,res) => {
             } else {
                 const fetchMoviesData = await httpMovies.get('')
                 console.log('fetchMoviesData.data')
+                client.set('movies', JSON.stringify(fetchMoviesData.data))
                 moviesData = JSON.stringify(fetchMoviesData.data)
             }
             res.send({
@@ -82,8 +83,8 @@ fastify.get('/', async (req,res) => {
  
     // try {
     //     const resultTv = await client.get('tv')
-    //     console.log('from redis client.tv', resultTv)
-    //     if (resultTv.length) {
+    //     if (resultTv) {
+    //         console.log('from redis client.tv', resultTv.data)
     //         tvData = resultTv
     //     } else {
     //         const fetchTvData = await httpTV.get('')
@@ -92,8 +93,8 @@ fastify.get('/', async (req,res) => {
     //     }
     //     try {
     //         const resultMovies = await client.get('movies')
-    //         console.log('from redis client.movies', resultMovies)
-    //         if (resultMovies.length) {
+    //         if (resultMovies) {
+    //             console.log('from redis client.movies', resultMovies.data)
     //             moviesData = resultMovies
     //         } else {
     //             const fetchMoviesData = await httpMovies.get('')
@@ -115,8 +116,8 @@ fastify.get('/', async (req,res) => {
 })
 
 
-fastify.listen(3000, () => {
-    console.log('Port 3000 for ORCHESTRATOR !')
+fastify.listen(3200, () => {
+    console.log('Port 3200 for ORCHESTRATOR !')
 })
 
 // const tvfetch = () =>{
